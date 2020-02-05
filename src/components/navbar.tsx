@@ -10,7 +10,10 @@ export const Navbar = () => (
       </div>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <NavLink exact to="/" className="nav-link">Genres</NavLink>
+          <NavLink exact to="/" className="nav-link">Home</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink exact to="/genre" className="nav-link">Genres</NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/arts" className="nav-link">Arts</NavLink>

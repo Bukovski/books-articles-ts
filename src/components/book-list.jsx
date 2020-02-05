@@ -2,30 +2,29 @@ import React, { useContext, useEffect } from 'react';
 import { BooksContext } from "../context/books/books-context";
 
 
-export const GenreDetail = (props) => {
+export const BookList = (props) => {
   const { name } = props.match.params;
-  const { genre, loading, error, getGenre } = useContext(BooksContext);
+  const { books, loading, error, getBooks } = useContext(BooksContext);
   
   useEffect(() => {
-    getGenre(name);
+    getBooks(name);
     
     // eslint-disable-next-line
   }, [ name ]);
   
   
   if (error) return <p className="text-center alert-danger">!Error</p>;
-  if (!genre.length || loading) return <p className="text-center">Loading...</p>;
+  if (!books.length || loading) return <p className="text-center">Loading...</p>;
   
   
-  const genreList = (data) => {
+  const bookList = (data) => {
     return data.map(genre => {
-      if (genre && genre.book_details) {
-        const { title, contributor, description, author } = genre.book_details[ 0 ];
-  
-        return <a
-          key={ title }
-          href={ genre.amazon_product_url }
-          className="list-group-item list-group-item-action"
+      const { title, author, description, contributor, amazon_product_url, book_image } = genre;
+      
+      return <div key={ title } className="row">
+        <a
+          href={ amazon_product_url }
+          className="list-group-item list-group-item-action col-md-8"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -36,21 +35,16 @@ export const GenreDetail = (props) => {
           <p className="mb-1">{ description }</p>
           <small>{ contributor }</small>
         </a>
-      }
-      
-      return "";
+        <img src={ book_image } alt={ title } className="col-md-2"/>
+      </div>
     })
   };
   
-  const titlePage = (genre && genre[ 0 ].list_name) || "";
-  
   return (
     <div>
-      <h3 className="text-center">{ titlePage }</h3>
-      
       <div className="list-group">
-        { genreList(genre) }
+        { bookList(books) }
       </div>
     </div>
-    )
+  )
 };

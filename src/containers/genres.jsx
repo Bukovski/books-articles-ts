@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { BooksContext} from "../context/books/books-context";
 
 
@@ -19,13 +20,13 @@ const Genres = () => {
     return data.map(genre => {
       const { display_name, list_name_encoded } = genre;
       
-      return <a
+      return <Link
         key={ list_name_encoded }
-        href={ "/genre/" + list_name_encoded }
+        to={ "/genre/" + list_name_encoded }
         className="list-group-item list-group-item-action"
       >
         <p className="mb-1">{ display_name }</p>
-      </a>
+      </Link>
     })
   };
   

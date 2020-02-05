@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { BooksContext } from "./books-context";
 import { booksReducer } from "./books-reducer";
 import {
-  GET_BOOKS_GENRES, GET_BOOKS_GENRE,
+  GET_BOOKS_GENRES, GET_BOOKS,
   SET_BOOKS_ERROR, SET_BOOKS_LOADING,
 } from '../types';
 
@@ -12,7 +12,7 @@ const BOOKS_SECRET_KEY = process.env.REACT_APP_BOOKS_SECRET_KEY;
 const BooksState = ({ children }) => {
   const initialState = {
     genres: [],
-    genre: [],
+    books: [],
     loading: false,
     error: false,
     errorMessage: ""
@@ -33,36 +33,36 @@ const BooksState = ({ children }) => {
       const data = await response.json();
       
       if (data.status !== "OK") return setError("Genres: Server Error");
-  
+
       dispatch({ type: GET_BOOKS_GENRES, payload: data.results })
     } catch (error) {
       setError(error)
     }
   };
   
-  const getGenre = async (genreName) => {
+  const getBooks = async (genreName) => {
     setLoading();
     
     try {
       const response = await fetch(
-      `https://api.nytimes.com/svc/books/v3/lists.json?list-name=${ genreName }&api-key=${ BOOKS_SECRET_KEY }`
+        `https://api.nytimes.com/svc/books/v3/lists/${ genreName }.json?api-key=${ BOOKS_SECRET_KEY }`
       );
       const data = await response.json();
       
-      if (data.status !== "OK") return setError("Genre: Server Error");
-      
-      dispatch({ type: GET_BOOKS_GENRE, payload: data.results })
+      if (data.status !== "OK") return setError("Books: Server Error");
+  
+      dispatch({ type: GET_BOOKS, payload: data.results.books })
     } catch (error) {
       setError(error)
     }
   };
   
-  const { genres, genre, loading, error } = state;
+  const { genres, books, loading, error } = state;
   
   return (
     <BooksContext.Provider value={{
-      genres, genre, loading, error,
-      setLoading, getGenres, getGenre
+      genres, books, loading, error,
+      setLoading, getGenres, getBooks
     }}>
       {children}
     </BooksContext.Provider>

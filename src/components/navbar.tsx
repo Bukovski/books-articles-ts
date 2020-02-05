@@ -1,13 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Genres from "../containers/Genres";
 
 
 export const Navbar = () => (
   <nav className="navbar navbar-dark bg-primary navbar-expand-lg">
     <div className="container">
       <div className="navbar-brand">
-        NYtimes
+        Books and News
       </div>
       <ul className="navbar-nav">
         <li className="nav-item">

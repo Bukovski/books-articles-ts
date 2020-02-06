@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { BooksContext } from "../context/books/books-context";
+import { Loader } from "./loader";
+import { Error } from "./error";
 
 
 export const BookList = (props) => {
@@ -13,8 +15,8 @@ export const BookList = (props) => {
   }, [ name ]);
   
   
-  if (error) return <p className="text-center alert-danger">!Error</p>;
-  if (!books.length || loading) return <p className="text-center">Loading...</p>;
+  if (error) return <Error />;
+  if (!books.length || loading) return <Loader />;
   
   
   const bookList = (data) => {

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { BooksContext} from "../context/books/books-context";
+import { Loader } from "../components/loader";
+import { Error } from "../components/error";
 
 
 const Genres = () => {
@@ -13,8 +15,8 @@ const Genres = () => {
   }, []);
   
   
-  if (error) return <p className="text-center alert-danger">!Error</p>;
-  if (!genres.length || loading) return <p className="text-center">Loading...</p>;
+  if (error) return <Error />;
+  if (!genres.length || loading) return <Loader />;
   
   const genreList = (data) => {
     return data.map(genre => {

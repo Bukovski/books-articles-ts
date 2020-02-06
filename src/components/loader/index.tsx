@@ -1,5 +1,5 @@
-import React from 'react'
-import "./loader.sass"
+import React from 'react';
+import "./loader.sass";
 
 
 export const Loader = () => (

@@ -1,4 +1,5 @@
 import React from "react";
+import "./home.sass";
 
 
 export const Home = () => {

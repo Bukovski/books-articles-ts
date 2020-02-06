@@ -1,7 +1,21 @@
 {
-  "name": "books-nytimes-ts",
+  "name": "books-articles-ts",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bukovski/books-articles-ts.git"
+  },
+  "keywords": [
+    "es6",
+    "babel",
+    "react",
+    "sass react",
+    "react useContext",
+    "react useReducer",
+    "react context reducer"
+  ],
+  "author": "Bukovski",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",

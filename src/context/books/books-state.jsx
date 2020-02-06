@@ -3,10 +3,12 @@ import { BooksContext } from "./books-context";
 import { booksReducer } from "./books-reducer";
 import {
   GET_BOOKS_GENRES, GET_BOOKS,
-  SET_BOOKS_ERROR, SET_BOOKS_LOADING,
+  SET_BOOKS_ERROR, SET_BOOKS_LOADING
 } from '../types';
 
-const BOOKS_SECRET_KEY = process.env.REACT_APP_BOOKS_SECRET_KEY;
+
+const BOOKS_SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
+const REACT_APP_BASIC_SERVER = process.env.REACT_APP_BASIC_SERVER;
 
 
 const BooksState = ({ children }) => {
@@ -28,7 +30,7 @@ const BooksState = ({ children }) => {
     
     try {
       const response = await fetch(
-        `https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=${ BOOKS_SECRET_KEY }`
+        `${ REACT_APP_BASIC_SERVER }books/v3/lists/names.json?api-key=${ BOOKS_SECRET_KEY }`
       );
       const data = await response.json();
       
@@ -45,7 +47,7 @@ const BooksState = ({ children }) => {
     
     try {
       const response = await fetch(
-        `https://api.nytimes.com/svc/books/v3/lists/${ genreName }.json?api-key=${ BOOKS_SECRET_KEY }`
+        `${ REACT_APP_BASIC_SERVER }books/v3/lists/${ genreName }.json?api-key=${ BOOKS_SECRET_KEY }`
       );
       const data = await response.json();
       
@@ -57,12 +59,13 @@ const BooksState = ({ children }) => {
     }
   };
   
+  
   const { genres, books, loading, error } = state;
   
   return (
     <BooksContext.Provider value={{
       genres, books, loading, error,
-      setLoading, getGenres, getBooks
+      getGenres, getBooks
     }}>
       {children}
     </BooksContext.Provider>

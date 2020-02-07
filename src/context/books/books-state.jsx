@@ -2,8 +2,8 @@ import React, { useReducer } from 'react';
 import { BooksContext } from "./books-context";
 import { booksReducer } from "./books-reducer";
 import {
-  GET_BOOKS_GENRES, GET_BOOKS,
-  SET_BOOKS_ERROR, SET_BOOKS_LOADING
+  GET_BOOKS_GENRES, GET_BOOKS, SET_BOOKS_RECORDS,
+  SET_BOOKS_ERROR, SET_BOOKS_LOADING, SET_GENRES_RECORDS
 } from '../types';
 
 
@@ -15,9 +15,11 @@ const BooksState = ({ children }) => {
   const initialState = {
     genres: [],
     books: [],
-    loading: false,
-    error: false,
-    errorMessage: ""
+    booksRecords: 6,
+    genresRecords: 10,
+    booksLoading: false,
+    booksError: false,
+    booksErrorMessage: ""
   };
   
   const [ state, dispatch ] = useReducer(booksReducer, initialState);
@@ -59,13 +61,20 @@ const BooksState = ({ children }) => {
     }
   };
   
+  const setBooksRecords = (recordsNumber) => {
+    dispatch({ type: SET_BOOKS_RECORDS, payload: recordsNumber })
+  };
   
-  const { genres, books, loading, error } = state;
+  const setGenresRecords = (recordsNumber) => {
+    dispatch({ type: SET_GENRES_RECORDS, payload: recordsNumber })
+  };
+  
   
   return (
     <BooksContext.Provider value={{
-      genres, books, loading, error,
-      getGenres, getBooks
+      ...state,
+      getGenres, getBooks,
+      setGenresRecords, setBooksRecords,
     }}>
       {children}
     </BooksContext.Provider>

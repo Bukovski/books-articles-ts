@@ -15,9 +15,9 @@ const ArticlesState = ({ children }) => {
   const initialState = {
     arts: [],
     science: [],
-    loading: false,
-    error: false,
-    errorMessage: ""
+    articleLoading: false,
+    articleError: false,
+    articleErrorMessage: ""
   };
   
   const [ state, dispatch ] = useReducer(articlesReducer, initialState);
@@ -64,11 +64,9 @@ const ArticlesState = ({ children }) => {
   };
   
   
-  const { arts, science, loading, error } = state;
-  
   return (
     <ArticleContext.Provider value={{
-      arts, science, loading, error,
+      ...state,
       getArts, getScience
     }}>
       {children}

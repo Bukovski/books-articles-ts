@@ -5,10 +5,10 @@ import {
 
 
 const handlers = {
-  [ GET_ARTS ]: (state, { payload }) => ({ ...state, arts: payload, loading: false, error: false }),
-  [ GET_SCIENCE ]: (state, { payload }) => ({ ...state, science: payload, loading: false, error: false }),
-  [ SET_ARTICLES_LOADING ]: state => ({ ...state, loading: true, error: false }),
-  [ SET_ARTICLES_ERROR ]: (state, { payload }) => ({ ...state, loading: false, error: true, errorMessage: payload }),
+  [ GET_ARTS ]: (state, { payload }) => ({ ...state, arts: payload, articleLoading: false, articleError: false }),
+  [ GET_SCIENCE ]: (state, { payload }) => ({ ...state, science: payload, articleLoading: false, articleError: false }),
+  [ SET_ARTICLES_LOADING ]: state => ({ ...state, articleLoading: true, articleError: false }),
+  [ SET_ARTICLES_ERROR ]: (state, { payload }) => ({ ...state, articleLoading: false, articleError: true, articleErrorMessage: payload }),
   DEFAULT: state => state
 };
 

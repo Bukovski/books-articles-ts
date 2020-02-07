@@ -1,32 +1,28 @@
 import React from 'react';
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 import { BooksContext } from "../../context/books/books-context";
-import { GenreItem } from "../../components/genre-item";
 import { usePagination, withDataReady } from "../../hoc-helpers";
-import "./genres.sass";
+import BookItem from "./book-item";
+import "./book-list.sass"
 
 
-const Genres = (props) => {
-  const { genres, genresRecords, showLoader } = props;
+const BookList = (props) => {
+  const { books, booksRecords, showLoader } = props;
   
-  const [ { pieceOfData, pageCount }, handlePageClick ] = usePagination(genres, genresRecords);
-    
-  const genreList = (data) => {
-    return data.map(genre => <GenreItem
-        key={ genre.list_name_encoded }
-        genre={ genre }
-      />
-    )
+  const [ { pieceOfData, pageCount }, handlePageClick ] = usePagination(books, booksRecords);
+  
+  const bookList = (data) => {
+    return data.map(genre => <BookItem key={ genre.primary_isbn13 } data={ genre }/>);
   };
   
   return (
-    <div className="genres">
-      <h2 className="genres__title">Genres</h2>
+    <div className="book-list">
+      <h2 className="book-list__title">Book List</h2>
       
       { showLoader
         ? showLoader
         : <div className="list-group">
-          { genreList(pieceOfData) }
+          { bookList(pieceOfData) }
           
           <div className="pagination__wrap">
             <ReactPaginate
@@ -49,18 +45,18 @@ const Genres = (props) => {
         </div>
       }
     </div>
-  );
+  )
 };
 
 
 const mapMethodsToProps = (item) => {
   return {
-    getLoadData: item.getGenres,
-    getData: item.genres,
+    getLoadData: item.getBooks,
+    getData: item.books,
     error: item.booksError,
     loading: item.booksLoading
   }
 };
 
 
-export default withDataReady(BooksContext, mapMethodsToProps)(Genres);
+export default withDataReady(BooksContext, mapMethodsToProps)(BookList);

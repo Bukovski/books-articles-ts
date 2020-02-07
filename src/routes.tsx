@@ -2,10 +2,10 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { BooksState } from "./context/books/books-state";
 import { ArticlesState } from "./context/articles/articles-state";
-import { Genres } from './containers/genres'
+import Genres from './containers/genres'
 import Arts from './containers/arts'
 import Science from './containers/science'
-import { BookList } from "./components/book-list";
+import BookList from "./components/book-list";
 import { Home } from "./containers/home";
 
 

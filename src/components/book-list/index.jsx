@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactPaginate from "react-paginate";
 import { BooksContext } from "../../context/books/books-context";
 import { usePagination, withDataReady } from "../../hoc-helpers";
 import BookItem from "./book-item";
+import { Pagination } from "../pagination";
 import "./book-list.sass"
 
 
@@ -23,25 +23,8 @@ const BookList = (props) => {
         ? showLoader
         : <div className="list-group">
           { bookList(pieceOfData) }
-          
-          <div className="pagination__wrap">
-            <ReactPaginate
-              previousLabel={ '<' }
-              nextLabel={ '>' }
-              breakLabel={ '...' }
-              breakClassName={ 'page-link' }
-              previousClassName={ 'page-link' }
-              nextClassName={ 'page-link' }
-              pageCount={ pageCount }
-              marginPagesDisplayed={ 1 }
-              pageRangeDisplayed={ 3 }
-              onPageChange={ handlePageClick }
-              containerClassName={ 'pagination justify-content-center' }
-              pageClassName={ 'page-item' }
-              pageLinkClassName={ 'page-link' }
-              activeClassName={ 'active' }
-            />
-          </div>
+    
+          <Pagination pageCount={ pageCount } handlePageClick={ handlePageClick }/>
         </div>
       }
     </div>

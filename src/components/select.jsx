@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 
 const Select = (props) => {
-  const [ selected, setSelected ] = useState(props.valueSelect);
+  const { valueSelect, optionData, handleSelect } = props;
+  const [ selected, setSelected ] = useState(valueSelect);
   
   const optionList = () => {
-    const { options, name } = props.optionData;
+    const { options, name } = optionData;
     
     return options.map(value => <option key={ value + name } value={ value }>{ value }</option>)
   };
@@ -14,7 +15,7 @@ const Select = (props) => {
     const { value } = event.target;
     
     setSelected(value);
-    props.handleSelect(parseInt(value));
+    handleSelect(parseInt(value));
   };
   
   return (

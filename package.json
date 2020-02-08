@@ -7,13 +7,15 @@
     "url": "git+https://github.com/Bukovski/books-articles-ts.git"
   },
   "keywords": [
-    "es6",
-    "babel",
-    "react",
     "sass react",
-    "react useContext",
-    "react useReducer",
-    "react context reducer"
+    "react usecontext",
+    "react usereducer",
+    "react context reducer",
+    "react pagination",
+    "react api",
+    "react loader",
+    "react error",
+    "react router example"
   ],
   "author": "Bukovski",
   "dependencies": {

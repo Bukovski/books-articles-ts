@@ -22,6 +22,7 @@ export const Home = () => {
     booksRecords, genresRecords,
     setBooksRecords, setGenresRecords
   } = useContext<IContextBooks>(BooksContext as any);
+
   
   return <div className="home">
     <h2 className="home__title">Home</h2>

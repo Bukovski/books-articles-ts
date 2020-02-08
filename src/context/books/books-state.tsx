@@ -1,18 +1,55 @@
-import React, { useReducer } from 'react';
+import * as React from 'react';
+import { useReducer } from 'react';
 import { BooksContext } from "./books-context";
 import { booksReducer } from "./books-reducer";
 import {
-  GET_BOOKS_GENRES, GET_BOOKS, SET_BOOKS_RECORDS,
-  SET_BOOKS_ERROR, SET_BOOKS_LOADING, SET_GENRES_RECORDS
+  GET_BOOKS_GENRES, GET_BOOKS,
+  SET_BOOKS_RECORDS, SET_GENRES_RECORDS,
+  SET_BOOKS_ERROR, SET_BOOKS_LOADING,
 } from '../types';
 
 
-const BOOKS_SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
-const REACT_APP_BASIC_SERVER = process.env.REACT_APP_BASIC_SERVER;
+export interface IGenres {
+  list_name: string
+  display_name: string
+  list_name_encoded: string
+}
+
+export interface IBooks {
+  title: string,
+  author: string,
+  description: string,
+  contributor: string,
+  amazon_product_url: string,
+  book_image: string,
+  primary_isbn13: string
+}
+
+export interface IInitialState {
+  genres: IGenres[],
+  books: IBooks[],
+  booksRecords: number,
+  genresRecords: number,
+  booksLoading: boolean,
+  booksError: boolean,
+  booksErrorMessage: string
+}
 
 
-const BooksState = ({ children }) => {
-  const initialState = {
+export interface IReducerAction {
+  type: string,
+  payload?: any
+}
+
+
+
+
+const BOOKS_SECRET_KEY: string | undefined = process.env.REACT_APP_SECRET_KEY;
+const REACT_APP_BASIC_SERVER: string | undefined = process.env.REACT_APP_BASIC_SERVER;
+
+
+const BooksState = ({ children }: { children: React.ReactNode }) => {
+  const initialState: IInitialState = {
     genres: [],
     books: [],
     booksRecords: 6,
@@ -22,10 +59,10 @@ const BooksState = ({ children }) => {
     booksErrorMessage: ""
   };
   
-  const [ state, dispatch ] = useReducer(booksReducer, initialState);
+  const [ state, dispatch ] = useReducer<React.Reducer<any, IReducerAction>>(booksReducer, initialState);
   
   const setLoading = () => dispatch({ type: SET_BOOKS_LOADING });
-  const setError = (message) => dispatch({ type: SET_BOOKS_ERROR, payload: message });
+  const setError = (message: string) => dispatch({ type: SET_BOOKS_ERROR, payload: message });
   
   const getGenres = async () => {
     setLoading();
@@ -44,7 +81,7 @@ const BooksState = ({ children }) => {
     }
   };
   
-  const getBooks = async (genreName) => {
+  const getBooks = async (genreName: string) => {
     setLoading();
     
     try {
@@ -54,18 +91,20 @@ const BooksState = ({ children }) => {
       const data = await response.json();
       
       if (data.status !== "OK") return setError("Books: Server Error");
-  
+
+      console.log("books", data.results.books)
+
       dispatch({ type: GET_BOOKS, payload: data.results.books })
     } catch (error) {
       setError(error)
     }
   };
   
-  const setBooksRecords = (recordsNumber) => {
+  const setBooksRecords = (recordsNumber: number) => {
     dispatch({ type: SET_BOOKS_RECORDS, payload: recordsNumber })
   };
   
-  const setGenresRecords = (recordsNumber) => {
+  const setGenresRecords = (recordsNumber: number) => {
     dispatch({ type: SET_GENRES_RECORDS, payload: recordsNumber })
   };
   

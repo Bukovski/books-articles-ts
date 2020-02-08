@@ -1,8 +1,17 @@
-import React, { useContext } from "react";
+import * as React from "react";
+import { useContext } from "react";
 import { BooksContext } from "../../context/books/books-context";
 import Select from "../../components/select";
 import { arrRange } from "../../hoc-helpers";
 import "./home.sass";
+
+
+interface IContextBooks {
+  booksRecords: number,
+  genresRecords: number,
+  setBooksRecords: (recordsNumber: number) => void,
+  setGenresRecords: (recordsNumber: number) => void
+}
 
 
 const booksRange = arrRange(3, 10, "books");
@@ -12,7 +21,7 @@ export const Home = () => {
   const {
     booksRecords, genresRecords,
     setBooksRecords, setGenresRecords
-  } = useContext(BooksContext);
+  } = useContext<IContextBooks>(BooksContext as any);
   
   return <div className="home">
     <h2 className="home__title">Home</h2>

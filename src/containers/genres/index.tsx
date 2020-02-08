@@ -1,17 +1,35 @@
-import React from 'react';
+import * as React from 'react';
 import { BooksContext } from "../../context/books/books-context";
 import { GenreItem } from "../../components/genre-item";
 import { usePagination, withDataReady } from "../../hoc-helpers";
 import { Pagination } from "../../components/pagination";
+import { IGenres } from "../../context/books/books-state";
 import "./genres.sass";
 
 
-const Genres = (props) => {
+interface IGenresProps {
+  genres: IGenres[],
+  genresRecords: number,
+  showLoader: boolean
+}
+
+interface IMapItem {
+  getGenres: (genreName: string) => Promise<void>,
+  genres: IGenres[],
+  booksLoading: boolean,
+  booksError: boolean,
+}
+
+type pageClick = (data: { selected: number }) => void
+
+
+const Genres = (props: IGenresProps) => {
   const { genres, genresRecords, showLoader } = props;
   
+  // @ts-ignore
   const [ { pieceOfData, pageCount }, handlePageClick ] = usePagination(genres, genresRecords);
     
-  const genreList = (data) => {
+  const genreList = (data: IGenres[]) => {
     return data.map(genre => <GenreItem
         key={ genre.list_name_encoded }
         genre={ genre }
@@ -28,7 +46,7 @@ const Genres = (props) => {
         : <div className="list-group">
           { genreList(pieceOfData) }
     
-          <Pagination pageCount={ pageCount } handlePageClick={ handlePageClick }/>
+          <Pagination pageCount={ pageCount } handlePageClick={ handlePageClick as pageClick }/>
         </div>
       }
     </div>
@@ -36,7 +54,7 @@ const Genres = (props) => {
 };
 
 
-const mapMethodsToProps = (item) => {
+const mapMethodsToProps = (item: IMapItem) => {
   return {
     getLoadData: item.getGenres,
     getData: item.genres,

@@ -5,7 +5,7 @@ import "./pagination.sass";
 
 interface IPagination {
   pageCount: number,
-  handlePageClick: (data: object) => void
+  handlePageClick: (data: { selected: number }) => void
 }
 
 

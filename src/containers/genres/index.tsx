@@ -25,9 +25,8 @@ type pageClick = (data: { selected: number }) => void
 
 const Genres = (props: IGenresProps) => {
   const { genres, genresRecords, showLoader } = props;
-  
-  // @ts-ignore
-  const [ { pieceOfData, pageCount }, handlePageClick ] = usePagination(genres, genresRecords);
+
+  const [ pieceOfData, pageCount, handlePageClick ] = usePagination(genres, genresRecords);
     
   const genreList = (data: IGenres[]) => {
     return data.map(genre => <GenreItem
@@ -44,7 +43,7 @@ const Genres = (props: IGenresProps) => {
       { showLoader
         ? showLoader
         : <div className="list-group">
-          { genreList(pieceOfData) }
+          { genreList(pieceOfData as any as  IGenres[]) }
     
           <Pagination pageCount={ pageCount } handlePageClick={ handlePageClick as pageClick }/>
         </div>

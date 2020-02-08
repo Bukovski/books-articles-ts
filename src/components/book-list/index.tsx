@@ -26,9 +26,7 @@ type pageClick = (data: { selected: number }) => void
 const BookList = (props: IBookList) => {
   const { books, booksRecords, showLoader } = props;
 
-  //@ts-ignore
-  const [ { pieceOfData, pageCount }, handlePageClick ] = usePagination(books, booksRecords);
-
+  const [ pieceOfData, pageCount, handlePageClick ] = usePagination(books, booksRecords);
 
   const bookList = (data: IBookItem[]) => {
     return data.map(genre => <BookItem key={ genre.primary_isbn13 } data={ genre }/>);

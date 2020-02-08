@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { IBookItem } from "../components/book-list/book-item";
 
 
-export interface IUsePagination {
-  pieceOfData : IBookItem[],
-  pageCount : number
-}
+export type PageClick = (data: { selected: number }) => void
 
 
-export const usePagination = (getData: IBookItem[], pageNotes: number = 5) => {
+export const usePagination = <T extends object>(getData: T[], pageNotes: number = 5): [ T[], number, PageClick ] => {
   const [ notesOnPage, setNotesOnPage ] = useState<number>(5);
   const [ pageCount, setPageCount ] = useState<number>(5);
-  const [ pieceOfData, setPieceOfData ] = useState<IBookItem[]>([]);
+  const [ pieceOfData, setPieceOfData ] = useState<T[]>([]);
   
   useEffect(() => {
     countNotes();
@@ -32,7 +29,7 @@ export const usePagination = (getData: IBookItem[], pageNotes: number = 5) => {
     const start = pageNumber * notesOnPage;
     const end = start + notesOnPage;
     
-    const notes: IBookItem[] = getData.slice(start, end);
+    const notes: T[] = getData.slice(start, end);
     
     setPieceOfData(notes);
   };
@@ -43,5 +40,5 @@ export const usePagination = (getData: IBookItem[], pageNotes: number = 5) => {
     sliceData(selected)
   };
   
-  return [ { pieceOfData, pageCount } as IUsePagination, handlePageClick ]
+  return [ pieceOfData, pageCount, handlePageClick ]
 };

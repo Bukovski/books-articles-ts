@@ -13,7 +13,7 @@ export const Navbar = () => (
           <NavLink exact to="/" className="nav-link">Home</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink exact to="/genre" className="nav-link">Genres</NavLink>
+          <NavLink to="/genre" className="nav-link">Genres</NavLink>
         </li>
       </ul>
     </div>
